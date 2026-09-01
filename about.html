@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Squad Sample Pages</title>
+<style>
+  :root { --accent:#54a7ff; --muted:#9aa8b3; --panel:#121820; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, sans-serif; background:#0d1216; color:#e8eef2; }
+  main { max-width: 720px; margin:0 auto; padding: 44px 20px 60px; }
+  h1 { margin:0 0 12px; }
+  .story { background: var(--panel); border:1px solid rgba(242,245,247,.1); border-radius:14px; padding:22px; }
+  .story p { color:#cbd5db; line-height:1.6; margin:0 0 12px; }
+  .story p.extra { display:none; }
+  .story.expanded p.extra { display:block; }
+  .toggle-btn { background:none; border:1px solid rgba(242,245,247,.18); color: var(--accent); padding:8px 16px; border-radius:8px; cursor:pointer; font-size:.86rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>About us</h1>
+  <div class="story" id="story">
+    <p>We build tools that help teams ship software faster, using a multi-agent squad workflow that mirrors how real engineering teams collaborate.</p>
+    <p class="extra">Our squad includes a Lead, Developer, Tester, Reviewer, Security, DevRel, and Docs member — each with clear responsibilities and hand-off points. Every page in this demo site was planned, built, reviewed, and tested by this workflow.</p>
+    <p class="extra">We believe visibility matters: seeing what each teammate is doing, thinking, and deciding builds trust in automated workflows.</p>
+    <button type="button" class="toggle-btn" id="toggleBtn">Read more</button>
+  </div>
+</main>
+<script>
+  const story = document.getElementById("story");
+  const toggleBtn = document.getElementById("toggleBtn");
+  toggleBtn.addEventListener("click", () => {
+    const expanded = story.classList.toggle("expanded");
+    toggleBtn.textContent = expanded ? "Show less" : "Read more";
+  });
+</script>
+</body>
+</html>

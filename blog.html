@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Squad Sample Pages</title>
+<style>
+  :root { --accent:#54a7ff; --muted:#9aa8b3; --panel:#121820; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, sans-serif; background:#0d1216; color:#e8eef2; }
+  header { padding: 44px 20px 12px; text-align:center; }
+  main { max-width: 900px; margin:0 auto; padding: 24px 20px 60px; }
+  .toolbar { display:flex; gap:10px; margin-bottom:18px; }
+  .toolbar input { flex:1; padding:10px 14px; border-radius:10px; border:1px solid rgba(242,245,247,.16); background: var(--panel); color:#e8eef2; }
+  .posts { display:grid; gap:14px; }
+  .post { background: var(--panel); border:1px solid rgba(242,245,247,.1); border-radius:12px; padding:18px; }
+  .post h3 { margin:0 0 6px; }
+  .post p { margin:0; color: var(--muted); font-size:.86rem; }
+  .empty { color: var(--muted); text-align:center; padding: 40px 0; display:none; }
+</style>
+</head>
+<body>
+<header><h1>Blog</h1><p style="color:#9aa8b3">Updates from the Squad team.</p></header>
+<main>
+  <div class="toolbar"><input type="search" id="searchInput" placeholder="Search posts…" aria-label="Search posts"></div>
+  <div class="posts" id="posts"></div>
+  <div class="empty" id="emptyState">No posts match your search.</div>
+</main>
+<script>
+  const POSTS = [
+    { title: "Introducing the live dashboard", excerpt: "See what your squad is doing in real time." },
+    { title: "Handoffs, visualized", excerpt: "Watch tasks fly between teammates as work progresses." },
+    { title: "Why we show agent thoughts", excerpt: "Transparency builds trust in automated workflows." },
+    { title: "Bench developers, explained", excerpt: "Bring in extra help without duplicating work." }
+  ];
+  const posts = document.getElementById("posts");
+  const emptyState = document.getElementById("emptyState");
+  const searchInput = document.getElementById("searchInput");
+  function render() {
+    const q = searchInput.value.trim().toLowerCase();
+    const filtered = POSTS.filter((p) => !q || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q));
+    posts.innerHTML = filtered.map((p) => `<div class="post"><h3>${p.title}</h3><p>${p.excerpt}</p></div>`).join("");
+    emptyState.style.display = filtered.length === 0 ? "block" : "none";
+  }
+  searchInput.addEventListener("input", render);
+  render();
+</script>
+</body>
+</html>

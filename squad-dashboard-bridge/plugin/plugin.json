@@ -1,0 +1,6 @@
+{
+  "name": "squad-dashboard-bridge",
+  "description": "Sends GitHub Copilot CLI turn events to the local Squad dashboard.",
+  "version": "1.0.0",
+  "extensions": "."
+}

@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "command",
+        "powershell": ".\\.github\\hooks\\squad-dashboard-bridge.ps1 -Type sessionStart",
+        "cwd": ".",
+        "timeoutSec": 5
+      }
+    ],
+    "userPromptSubmitted": [
+      {
+        "type": "command",
+        "powershell": ".\\.github\\hooks\\squad-dashboard-bridge.ps1 -Type userPromptSubmitted",
+        "cwd": ".",
+        "timeoutSec": 5
+      }
+    ],
+    "agentStop": [
+      {
+        "type": "command",
+        "powershell": ".\\.github\\hooks\\squad-dashboard-bridge.ps1 -Type agentStop",
+        "cwd": ".",
+        "timeoutSec": 5
+      }
+    ],
+    "sessionEnd": [
+      {
+        "type": "command",
+        "powershell": ".\\.github\\hooks\\squad-dashboard-bridge.ps1 -Type sessionEnd",
+        "cwd": ".",
+        "timeoutSec": 5
+      }
+    ]
+  }
+}

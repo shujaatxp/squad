@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Squad Sample Pages</title>
+<style>
+  :root { --accent:#54a7ff; --muted:#9aa8b3; --panel:#121820; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, sans-serif; background:#0d1216; color:#e8eef2; }
+  main { max-width: 720px; margin:0 auto; padding: 44px 20px 60px; }
+  h1 { margin:0 0 20px; text-align:center; }
+  .faq-item { background: var(--panel); border:1px solid rgba(242,245,247,.1); border-radius:10px; margin-bottom:10px; overflow:hidden; }
+  .faq-q { width:100%; text-align:left; background:none; border:none; color:#e8eef2; padding:16px; font-size:.94rem; cursor:pointer; display:flex; justify-content:space-between; }
+  .faq-a { max-height:0; overflow:hidden; transition: max-height .25s ease; color: var(--muted); font-size:.86rem; padding:0 16px; }
+  .faq-item.open .faq-a { max-height:200px; padding-bottom:16px; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-icon { transition: transform .2s ease; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Frequently asked questions</h1>
+  <div id="faqList"></div>
+</main>
+<script>
+  const FAQS = [
+    { q: "What is Squad?", a: "A multi-agent workflow that plans, builds, reviews, and tests work like a real team." },
+    { q: "Can I add more developers?", a: "Yes — bench developers can join the floor and pick up separate work with one click." },
+    { q: "How do handoffs work?", a: "When one member finishes, an animated ticket flies to the next member picking up the task." },
+    { q: "Is this production software?", a: "No, this is a demo site showcasing the squad dashboard and workflow." }
+  ];
+  const faqList = document.getElementById("faqList");
+  faqList.innerHTML = FAQS.map((f, i) => `
+    <div class="faq-item" id="faq-${i}">
+      <button type="button" class="faq-q" data-index="${i}">${f.q}<span class="faq-icon">+</span></button>
+      <div class="faq-a">${f.a}</div>
+    </div>
+  `).join("");
+  document.querySelectorAll(".faq-q").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.getElementById(`faq-${btn.dataset.index}`).classList.toggle("open");
+    });
+  });
+</script>
+</body>
+</html>

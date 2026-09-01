@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Squad Sample Pages</title>
+<style>
+  :root { --accent:#54a7ff; --green:#41d38b; --muted:#9aa8b3; --panel:#121820; --red:#ff6b6b; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, sans-serif; background:#0d1216; color:#e8eef2; }
+  main { max-width: 560px; margin:0 auto; padding: 44px 20px 60px; }
+  h1 { margin:0 0 6px; }
+  p.subtitle { color: var(--muted); margin:0 0 20px; }
+  form { background: var(--panel); border:1px solid rgba(242,245,247,.1); border-radius:16px; padding:24px; display:flex; flex-direction:column; gap:14px; }
+  label { font-size:.82rem; color:#cbd5db; display:flex; flex-direction:column; gap:6px; }
+  input, textarea { padding:10px 12px; border-radius:8px; border:1px solid rgba(242,245,247,.16); background:#0d1216; color:#e8eef2; font:inherit; font-size:.88rem; }
+  textarea { min-height:100px; resize:vertical; }
+  .error { color: var(--red); font-size:.74rem; min-height:1em; }
+  .submit-btn { background: var(--accent); color:#04121f; font-weight:600; border:none; border-radius:8px; padding:11px; font-size:.92rem; cursor:pointer; }
+  .success { display:none; background: var(--panel); border:1px solid var(--green); border-radius:16px; padding:24px; margin-top:18px; text-align:center; color: var(--green); }
+  .success.show { display:block; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Contact us</h1>
+  <p class="subtitle">Have a question? Send us a message.</p>
+  <form id="contactForm" novalidate>
+    <label>Name
+      <input type="text" id="name" required>
+      <span class="error" id="nameError"></span>
+    </label>
+    <label>Email
+      <input type="email" id="email" required>
+      <span class="error" id="emailError"></span>
+    </label>
+    <label>Message
+      <textarea id="message" required></textarea>
+      <span class="error" id="messageError"></span>
+    </label>
+    <button type="submit" class="submit-btn">Send message</button>
+  </form>
+  <div class="success" id="success">Thanks! We'll get back to you soon.</div>
+</main>
+<script>
+  const form = document.getElementById("contactForm");
+  const success = document.getElementById("success");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let valid = true;
+    const name = document.getElementById("name");
+    const email = document.getElementById("email");
+    const message = document.getElementById("message");
+    document.getElementById("nameError").textContent = "";
+    document.getElementById("emailError").textContent = "";
+    document.getElementById("messageError").textContent = "";
+    if (!name.value.trim()) { document.getElementById("nameError").textContent = "Name is required."; valid = false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { document.getElementById("emailError").textContent = "Enter a valid email."; valid = false; }
+    if (!message.value.trim()) { document.getElementById("messageError").textContent = "Message is required."; valid = false; }
+    if (!valid) return;
+    form.style.display = "none";
+    success.classList.add("show");
+  });
+</script>
+</body>
+</html>

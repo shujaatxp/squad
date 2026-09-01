@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home — Squad Sample Pages</title>
+<style>
+  :root { --accent:#54a7ff; --muted:#9aa8b3; --panel:#121820; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, sans-serif; background:#0d1216; color:#e8eef2; }
+  header { padding: 60px 20px 40px; text-align:center; }
+  header h1 { font-size:2.2rem; margin:0 0 12px; }
+  header p { color: var(--muted); max-width:520px; margin:0 auto; }
+  .cta-row { display:flex; gap:12px; justify-content:center; margin-top:24px; }
+  .cta { text-decoration:none; padding:12px 22px; border-radius:8px; font-weight:600; font-size:.92rem; }
+  .cta.primary { background: var(--accent); color:#04121f; }
+  .cta.secondary { border:1px solid rgba(242,245,247,.2); color:#e8eef2; }
+  main { max-width: 1000px; margin:0 auto; padding: 20px 20px 60px; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:18px; margin-top:20px; }
+  .card { background: var(--panel); border:1px solid rgba(242,245,247,.1); border-radius:12px; padding:20px; cursor:pointer; }
+  .card h3 { margin:0 0 8px; }
+  .card p { margin:0; color: var(--muted); font-size:.86rem; }
+  .card .detail { display:none; margin-top:10px; color:#cbd5db; font-size:.82rem; }
+  .card.open .detail { display:block; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Build faster with Squad</h1>
+  <p>A demo site showcasing a multi-agent squad workflow — plan, build, review, test, and ship.</p>
+  <div class="cta-row">
+    <a class="cta primary" href="pricing.html">See pricing</a>
+    <a class="cta secondary" href="features.html">Explore features</a>
+  </div>
+</header>
+<main>
+  <div class="grid" id="grid">
+    <div class="card"><h3>Plan together</h3><p>Lead scopes work with the whole team.</p><div class="detail">Click cards to expand for more detail on how Squad plans work.</div></div>
+    <div class="card"><h3>Build fast</h3><p>Developers ship working demos quickly.</p><div class="detail">Every page here was built and tested by an autonomous Squad workflow.</div></div>
+    <div class="card"><h3>Review & ship</h3><p>Security, review, and test gates before shipping.</p><div class="detail">Nothing ships without security review, code review, and a passing test suite.</div></div>
+  </div>
+</main>
+<script>
+  document.querySelectorAll(".card").forEach((card) => {
+    card.addEventListener("click", () => card.classList.toggle("open"));
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request Item — IT Catalog</title>
+<style>
+  :root { --accent:#54a7ff; --green:#41d38b; --amber:#f5b942; --muted:#9aa8b3; --panel:#121820; --red:#ff6b6b; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, sans-serif; background:#0d1216; color:#e8eef2; }
+  main { max-width: 560px; margin:0 auto; padding: 44px 20px 60px; }
+  a.back { color: var(--accent); text-decoration:none; font-size:.84rem; }
+  .card { background: var(--panel); border:1px solid rgba(242,245,247,.1); border-radius:16px; padding:26px; margin-top:16px; }
+  h1 { margin:0 0 6px; }
+  .disclaimer { font-size:.76rem; color: var(--muted); border:1px dashed rgba(242,245,247,.16); border-radius:10px; padding:10px 12px; margin-bottom:16px; }
+  label { font-size:.82rem; color:#cbd5db; display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
+  input { padding:10px 12px; border-radius:8px; border:1px solid rgba(242,245,247,.16); background:#0d1216; color:#e8eef2; font:inherit; }
+  .error { color: var(--red); font-size:.74rem; min-height:1em; }
+  .submit-btn { width:100%; padding:12px; border-radius:8px; border:none; background: var(--accent); color:#04121f; font-weight:600; cursor:pointer; }
+  .status-card { display:none; text-align:center; padding:20px; border-radius:12px; margin-top:14px; }
+  .status-card.show { display:block; }
+  .status-card.pending { background: rgba(245,185,66,.1); border:1px solid var(--amber); color: var(--amber); }
+  .status-card.approved { background: rgba(65,211,139,.1); border:1px solid var(--green); color: var(--green); }
+  .approve-btn { margin-top:12px; padding:8px 16px; border-radius:8px; border:1px solid var(--green); background:none; color: var(--green); cursor:pointer; font-size:.82rem; }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="it-catalog.html">← Back to catalog</a>
+  <div class="card">
+    <h1>Request item</h1>
+    <div class="disclaimer">Demo only: use a fake requester ID, not a real employee ID. All requests simulate a pending → approved workflow — no data is stored.</div>
+    <form id="requestForm" novalidate>
+      <label>Requester name
+        <input type="text" id="requesterName" required>
+        <span class="error" id="nameError"></span>
+      </label>
+      <label>Fake requester ID (e.g. DEMO-1042)
+        <input type="text" id="requesterId" placeholder="DEMO-1042" required>
+        <span class="error" id="idError"></span>
+      </label>
+      <label>Reason for request
+        <input type="text" id="reason" required>
+        <span class="error" id="reasonError"></span>
+      </label>
+      <button type="submit" class="submit-btn">Submit request</button>
+    </form>
+    <div class="status-card pending" id="pendingCard">
+      Request submitted — status: <strong>Pending approval</strong>.
+      <div><button type="button" class="approve-btn" id="approveBtn">Simulate manager approval</button></div>
+    </div>
+    <div class="status-card approved" id="approvedCard">
+      ✅ Approved! Your item will be provisioned shortly (demo only).
+    </div>
+  </div>
+</main>
+<script>
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id") || "item";
+  const qty = params.get("qty") || "1";
+
+  const form = document.getElementById("requestForm");
+  const pendingCard = document.getElementById("pendingCard");
+  const approvedCard = document.getElementById("approvedCard");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let valid = true;
+    const name = document.getElementById("requesterName");
+    const reqId = document.getElementById("requesterId");
+    const reason = document.getElementById("reason");
+    document.getElementById("nameError").textContent = "";
+    document.getElementById("idError").textContent = "";
+    document.getElementById("reasonError").textContent = "";
+    if (!name.value.trim()) { document.getElementById("nameError").textContent = "Name is required."; valid = false; }
+    if (!/^DEMO-\d+$/i.test(reqId.value.trim())) { document.getElementById("idError").textContent = "Use a fake ID like DEMO-1042."; valid = false; }
+    if (!reason.value.trim()) { document.getElementById("reasonError").textContent = "Reason is required."; valid = false; }
+    if (!valid) return;
+    form.style.display = "none";
+    pendingCard.classList.add("show");
+  });
+
+  document.getElementById("approveBtn").addEventListener("click", () => {
+    pendingCard.classList.remove("show");
+    approvedCard.classList.add("show");
+  });
+</script>
+</body>
+</html>

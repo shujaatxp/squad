@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Item Detail — IT Catalog</title>
+<style>
+  :root { --accent:#54a7ff; --green:#41d38b; --muted:#9aa8b3; --panel:#121820; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, sans-serif; background:#0d1216; color:#e8eef2; }
+  main { max-width: 640px; margin:0 auto; padding: 44px 20px 60px; }
+  a.back { color: var(--accent); text-decoration:none; font-size:.84rem; }
+  .card { background: var(--panel); border:1px solid rgba(242,245,247,.1); border-radius:16px; padding:26px; margin-top:16px; }
+  h1 { margin:0 0 6px; }
+  .tag { display:inline-block; font-size:.72rem; padding:3px 10px; border-radius:999px; background: rgba(84,167,255,.14); color: var(--accent); margin-bottom:10px; }
+  p.desc { color:#cbd5db; line-height:1.6; }
+  .qty-row { display:flex; align-items:center; gap:10px; margin:18px 0; }
+  .qty-row button { width:34px; height:34px; border-radius:8px; border:1px solid rgba(242,245,247,.18); background:none; color:#e8eef2; cursor:pointer; font-size:1rem; }
+  .qty-row span { min-width:24px; text-align:center; }
+  .request-btn { width:100%; padding:12px; border-radius:8px; border:none; background: var(--accent); color:#04121f; font-weight:600; cursor:pointer; }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="it-catalog.html">← Back to catalog</a>
+  <div class="card">
+    <span class="tag" id="itemTag">Hardware</span>
+    <h1 id="itemName">Item</h1>
+    <p class="desc" id="itemDesc"></p>
+    <div class="qty-row">
+      <button type="button" id="decBtn" aria-label="Decrease quantity">−</button>
+      <span id="qtyValue">1</span>
+      <button type="button" id="incBtn" aria-label="Increase quantity">+</button>
+    </div>
+    <button type="button" class="request-btn" id="requestBtn">Request this item</button>
+  </div>
+</main>
+<script>
+  const ITEMS = {
+    "laptop-14": { name: "14\" Developer Laptop", category: "Hardware", desc: "16GB RAM, 512GB SSD, pre-configured dev image." },
+    "monitor-27": { name: "27\" 4K Monitor", category: "Hardware", desc: "USB-C, 60Hz, height adjustable stand." },
+    "ide-license": { name: "IDE Pro License", category: "Software", desc: "1-year seat for the team's preferred IDE." },
+    "vpn-token": { name: "VPN Hardware Token", category: "Accessories", desc: "Physical 2FA token for remote access." },
+    "headset": { name: "Noise-Cancelling Headset", category: "Accessories", desc: "For calls and focus time." },
+    "design-license": { name: "Design Suite License", category: "Software", desc: "1-year seat for the design toolset." }
+  };
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id") || "laptop-14";
+  const item = ITEMS[id] || ITEMS["laptop-14"];
+  document.getElementById("itemTag").textContent = item.category;
+  document.getElementById("itemName").textContent = item.name;
+  document.getElementById("itemDesc").textContent = item.desc;
+
+  let qty = 1;
+  const qtyValue = document.getElementById("qtyValue");
+  document.getElementById("decBtn").addEventListener("click", () => { if (qty > 1) qty--; qtyValue.textContent = qty; });
+  document.getElementById("incBtn").addEventListener("click", () => { if (qty < 5) qty++; qtyValue.textContent = qty; });
+
+  document.getElementById("requestBtn").addEventListener("click", () => {
+    location.href = `it-request.html?id=${encodeURIComponent(id)}&qty=${qty}`;
+  });
+</script>
+</body>
+</html>

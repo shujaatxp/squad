@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — Squad Sample Pages</title>
+<style>
+  :root { --accent:#54a7ff; --green:#41d38b; --muted:#9aa8b3; --panel:#121820; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, sans-serif; background:#0d1216; color:#e8eef2; }
+  header { padding: 44px 20px 12px; text-align:center; }
+  header h1 { margin:0 0 8px; }
+  .toggle-row { display:flex; justify-content:center; gap:10px; margin:18px 0; }
+  .toggle-btn { background: var(--panel); border:1px solid rgba(242,245,247,.16); color:#cbd5db; border-radius:999px; padding:8px 16px; font-size:.82rem; cursor:pointer; }
+  .toggle-btn.active { border-color: var(--accent); color: var(--accent); }
+  main { max-width: 960px; margin:0 auto; padding: 10px 20px 60px; }
+  .plans { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:18px; }
+  .plan { background: var(--panel); border:1px solid rgba(242,245,247,.1); border-radius:14px; padding:24px; text-align:center; }
+  .plan h3 { margin:0 0 6px; }
+  .plan .price { font-size:1.8rem; font-weight:700; margin:10px 0; color: var(--green); }
+  .plan ul { list-style:none; padding:0; margin:16px 0; text-align:left; color:#cbd5db; font-size:.86rem; }
+  .plan li { padding:6px 0; border-bottom:1px solid rgba(242,245,247,.06); }
+  .plan button { width:100%; padding:10px; border-radius:8px; border:none; background: var(--accent); color:#04121f; font-weight:600; cursor:pointer; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Simple, transparent pricing</h1>
+  <div class="toggle-row">
+    <button type="button" class="toggle-btn active" data-period="monthly">Monthly</button>
+    <button type="button" class="toggle-btn" data-period="yearly">Yearly (2 months free)</button>
+  </div>
+</header>
+<main>
+  <div class="plans">
+    <div class="plan">
+      <h3>Starter</h3>
+      <div class="price" data-monthly="$0" data-yearly="$0">$0</div>
+      <ul><li>1 project</li><li>Community support</li><li>Basic dashboard</li></ul>
+      <button type="button">Get started</button>
+    </div>
+    <div class="plan">
+      <h3>Team</h3>
+      <div class="price" data-monthly="$29/mo" data-yearly="$290/yr">$29/mo</div>
+      <ul><li>10 projects</li><li>Priority support</li><li>Full dashboard</li></ul>
+      <button type="button">Start trial</button>
+    </div>
+    <div class="plan">
+      <h3>Enterprise</h3>
+      <div class="price" data-monthly="$99/mo" data-yearly="$990/yr">$99/mo</div>
+      <ul><li>Unlimited projects</li><li>Dedicated support</li><li>SSO & audit logs</li></ul>
+      <button type="button">Contact sales</button>
+    </div>
+  </div>
+</main>
+<script>
+  const buttons = document.querySelectorAll(".toggle-btn");
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      buttons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const period = btn.dataset.period;
+      document.querySelectorAll(".price").forEach((el) => {
+        el.textContent = el.dataset[period];
+      });
+    });
+  });
+</script>
+</body>
+</html>
